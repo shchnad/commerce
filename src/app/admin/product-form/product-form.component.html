@@ -1,0 +1,162 @@
+<!-- <div class="row">
+    <div class="col-md-8">
+        <form #f="ngForm" (ngSubmit)="save(f.value)">
+            <div class="form-group">
+                <label for="category">Title</label>
+                <input #title="ngModel" [(ngModel)]="product.title" name="title" id="title" type="text" class="form-control" required>
+                <div class="alert alert-danger" *ngIf="title.touched && title.invalid">is required!</div>
+            </div>
+            <div class="form-group">
+                <label for="category">Category</label>
+                <select #category="ngModel" [(ngModel)]="product.category" name="category" id="category" class="form-control" required>
+                    <option value=""></option>
+                    <option *ngFor="let c of categories" [value]="c.name">{{c.name}}</option>
+                </select>
+                <div class="alert alert-danger" *ngIf="category.touched && category.invalid">is required!</div>
+            </div>
+            <div class="form-group">
+                <label for="origin">Origin</label>
+                <input #origin="ngModel" [(ngModel)]="product.origin" name="origin" id="origin" type="text" class="form-control" required>
+                <div class="alert alert-danger" *ngIf="origin.touched && origin.invalid">you have to indicate a country of origin</div>
+            </div>
+            <div class="form-group">
+                <label for="origin">Package</label>
+                <input #package="ngModel" [(ngModel)]="product.package" name="package" id="package" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="details">Details</label>
+                <input #details="ngModel" [(ngModel)]="product.details" name="details" id="details" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="expiryDate">Expiry Date</label>
+                <input #expiryDate="ngModel" [(ngModel)]="product.expiryDate" name="expiryDate" id="expiryDate" type="date" class="form-control" required>
+                <div class="alert alert-danger" *ngIf="expiryDate.touched && expiryDate.invalid">is required!</div>
+            </div>
+            <div class="form-group">
+                <label for="price">Price</label>
+                <div class="input-group">
+                    <span class="input-group-text">$</span>
+                    <input #price="ngModel" [(ngModel)]="product.price" name="price" id="price" type="number" class="form-control" required [min]='0'>
+                </div>
+                <div class="alert alert-danger" *ngIf="price.touched && price.invalid">
+                    <div *ngIf="price.errors.required">is required!</div>
+                    <div *ngIf="price.errors.min">price should be 0 or higher!</div>
+                </div>
+                <div  class="form-group">
+                    <select #priceQuantity="ngModel" [(ngModel)]="product.priceQuantity" name="priceQuantity" id="priceQuantity" class="form-control" required>
+                        <option *ngFor="let priceQuantity of productService.priceQuantity" [value]="priceQuantity">{{priceQuantity}}</option>
+                    </select>
+                    <div class="alert alert-danger" *ngIf="priceQuantity.touched && priceQuantity.invalid">is required!</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="imageUrl">image Url</label>
+                <input #imageUrl="ngModel" [(ngModel)]="product.imageUrl" name="imageUrl" id="imageUrl" type="text" class="form-control" required url>
+                <div class="alert alert-danger" *ngIf="imageUrl.touched && imageUrl.invalid">
+                    <div *ngIf="imageUrl.errors.required">is required!</div>
+                    <div *ngIf="imageUrl.errors.url">should be a valid url!</div>
+                </div>
+            </div>
+            <div>
+                <button class="btn btn-primary" [disabled]="!f.valid">Save</button>
+                <button class="btn btn-danger" type="button" (click)="delete()">Delete</button>
+            </div>
+        </form>
+    </div>
+    <div class="col-md-6">
+        <div class="card" *ngIf="product.title" style="width: 18rem;">
+            <img [src]="product.imageUrl" class="card-img-top">
+            <div class="card-body">
+                <h5 class="card-title">{{product.title}}</h5>
+                <p class="card-text">{{product.price | currency:'USD':true}}</p>
+            </div>
+        </div>
+    </div>
+</div> -->
+
+<form #f="ngForm" (ngSubmit)="save(f.value)">
+<div class="grid-container">
+    <div class="grid-item-Title">
+        <div class="form-group">
+            <label for="title">Title</label>
+            <input tabindex="1" #title="ngModel" [(ngModel)]="product.title" name="title" id="title" type="text" class="form-control" required>
+            <div class="alert alert-danger" *ngIf="title.touched && title.invalid">is required!</div>
+        </div>
+    </div>
+    <div class="grid-item-Category">
+        <div class="form-group">
+            <label for="category">Category</label>
+            <select tabindex="2" #category="ngModel" [(ngModel)]="product.category" name="category" id="category" class="form-control" required>
+                <option value=""></option>
+                <option *ngFor="let c of categories" [value]="c.name">{{c.name}}</option>
+            </select>
+            <div class="alert alert-danger" *ngIf="category.touched && category.invalid">is required!</div>
+        </div>
+    </div>
+    <div class="grid-item-Origin">
+        <div class="form-group">
+            <label for="origin">Origin</label>
+            <input tabindex="3"  #origin="ngModel" [(ngModel)]="product.origin" name="origin" id="origin" type="text" class="form-control" required>
+            <div class="alert alert-danger" *ngIf="origin.touched && origin.invalid">you have to indicate a country of origin</div>
+        </div>
+    </div>
+    <div class="grid-item-Package">
+        <div class="form-group">
+            <label for="origin">Package</label>
+            <input tabindex="4"  #package="ngModel" [(ngModel)]="product.package" name="package" id="package" class="form-control">
+        </div>
+    </div>
+    <div class="grid-item-Details">
+        <div class="form-group">
+            <label for="details">Details</label>
+            <input tabindex="8" #details="ngModel" [(ngModel)]="product.details" name="details" id="details" class="form-control">
+        </div>
+    </div>
+    <div class="grid-item-ExpiryDate">
+        <div class="form-group">
+            <label for="expiryDate">Expiry Date</label>
+            <input tabindex="7"  #expiryDate="ngModel" [(ngModel)]="product.expiryDate" name="expiryDate" id="expiryDate" type="date" class="form-control" required>
+            <div class="alert alert-danger" *ngIf="expiryDate.touched && expiryDate.invalid">is required!</div>
+        </div>
+    </div>
+    <div class="grid-item-Price">
+        <div class="form-group">
+            <label for="price">Price</label>
+            <div class="input-group">
+                <span class="input-group-text">$</span>
+                <input tabindex= "5"  #price="ngModel" [(ngModel)]="product.price" name="price" id="price" type="number" class="form-control" required [min]='0'>
+            </div>
+            <div class="alert alert-danger" *ngIf="price.touched && price.invalid">
+                <div *ngIf="price.errors.required">is required!</div>
+                <div *ngIf="price.errors.min">price should be 0 or higher!</div>
+            </div>
+            <div  class="form-group">
+                <select tabindex="6" #priceQuantity="ngModel" [(ngModel)]="product.priceQuantity" name="priceQuantity" id="priceQuantity" class="form-control" required>
+                    <option *ngFor="let priceQuantity of productService.priceQuantity" [value]="priceQuantity">{{priceQuantity}}</option>
+                </select>
+                <div class="alert alert-danger" *ngIf="priceQuantity.touched && priceQuantity.invalid">is required!</div>
+            </div>
+        </div>
+    </div>
+    <div class="grid-item-imageUrl">
+        <div class="form-group">
+            <label for="imageUrl">image Url</label>
+            <input tabindex="9" #imageUrl="ngModel" [(ngModel)]="product.imageUrl" 
+            name="imageUrl" id="imageUrl" type="text" class="form-control" url>
+            <div class="alert alert-danger" *ngIf="imageUrl.touched && imageUrl.invalid">
+                <div *ngIf="imageUrl.errors.url">should be a valid url!</div>
+            </div>
+        </div>
+    </div>
+    <div class="grid-item-Buttons">
+        <div>
+            <button tabindex="10" class="btn btn-primary" [disabled]="!f.valid">Save</button>
+            <button class="btn btn-danger" type="button" (click)="delete()">Delete</button>
+        </div>
+    </div>
+    <div class="grid-item-Card">
+        <app-product-card [product]="product" [showActions]="false" class="image"></app-product-card>
+    </div>
+  </div>
+</form>
+

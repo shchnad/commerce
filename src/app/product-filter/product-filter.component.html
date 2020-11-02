@@ -1,0 +1,19 @@
+<div style="position: fixed;">
+    <div class="list-group">
+    <a 
+        class="list-group-item list-group-item-action"
+        routerLink="/products"
+        [class.active]="!categoryToFilter"
+        >
+        All Categories
+    </a>
+    <a *ngFor="let cat of categories$ | async" 
+        class="list-group-item list-group-item-action"
+        routerLink="/products"
+        [queryParams]="{ category: cat.name}"    
+        [class.active]="categoryToFilter === cat.name"
+        >
+        {{cat.name}}
+    </a>
+</div>
+</div>
