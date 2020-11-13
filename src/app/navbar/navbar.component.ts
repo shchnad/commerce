@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit} from '@angular/core';
-import { switchMapTo } from 'rxjs/operators';
 import { AuthService } from '../services/auth.service';
 import { UserService } from '../services/user.service';
-import { switchMap, map } from 'rxjs/operators';
+import { ShoppingCartService } from '../services/shopping-cart.service';
+import { ShoppingCart } from '../interfaces/shiopping-cart';
 
 @Component({
   selector: 'app-navbar',
@@ -14,25 +14,35 @@ export class NavbarComponent implements OnDestroy {
   isAdmin;
   subUser;
   subUserDb;
+  totalQuantity;
 
   constructor(
     public auth: AuthService,
-    public userService: UserService
+    public userService: UserService,
+    private shoppingCartService: ShoppingCartService
   ) 
-  {
-    this.subUser = this.auth.user$
-    .subscribe( user=> {
+  { 
+    this.subUser = this.auth.user$.subscribe( user=> {
       if (user) {
         this.user = user;
-        this.subUserDb = this.userService.getUserFromDb(user)
-        .subscribe(userDb=> {if(userDb) this.isAdmin = userDb.isAdmin})
+        this.subUserDb = this.userService.getUserFromDb(user).subscribe(userDb=> {
+          if(userDb) this.isAdmin = userDb.isAdmin})
       }
-    }) 
-   }
-    
+    });
+  }
+
   ngOnDestroy(){
     this.subUser.unsubscribe();
     this.subUserDb.unsubscribe();
+  }
+
+  async ngOnInit(){
+    (await this.shoppingCartService.getCart()).valueChanges().subscribe((cart:ShoppingCart)=> {
+      this.totalQuantity = 0;
+      for (let productKey in cart.items){          
+        this.totalQuantity += cart.items[productKey].quantity
+      }
+    })
   }
 
 }

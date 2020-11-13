@@ -9,16 +9,17 @@ import { Product } from '../../interfaces/product';
   templateUrl: './product-form.component.html',
   styleUrls: ['./product-form.component.css']
 })
+
 export class ProductFormComponent implements OnInit, OnDestroy {
+
+  @Input('product') pr: Product;
 
   categories;
   mySubscription1;
   mySubscription2;
   key;
-
+  showAddToCart;
   product:any = {}
-
-  @Input('product') pr: Product;
 
   constructor(
     private categoryService: CategoryService,
@@ -26,12 +27,12 @@ export class ProductFormComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     public productService: ProductService
     ) {
-    this.mySubscription1 = this.categoryService.getCategories()
-    .subscribe(data=> {this.categories = data})
+      this.mySubscription1 = this.categoryService.getCategories()
+      .subscribe(data=> {this.categories = data})
 
-    this.key = this.route.snapshot.paramMap.get('id');
-    if (this.key) this.mySubscription2 = this.productService.getProduct(this.key)
-    .subscribe((data):Product=> this.product = data)
+      this.key = this.route.snapshot.paramMap.get('id');
+      if (this.key) this.mySubscription2 = this.productService.getProduct(this.key)
+      .subscribe((data):Product=> this.product = data)
     }
 
    save(product){

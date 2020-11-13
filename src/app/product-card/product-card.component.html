@@ -1,27 +1,31 @@
 <div class="card" *ngIf="product.title" style="align-items: center">
+
     <img [src]="product.imageUrl" class="card-img-top imageSizeBig" 
-    [class.imageSizeLittle]="productService.little"
-    >
+    [class.imageSizeLittle]="productService.little">
+
     <div class="card-body">
         <h5 class="card-title">{{product.title}}</h5>
         <p class="card-text blue" [class.priceFontSmall]="productService.little">
             {{product.price | currency:'USD':true}} {{product.priceQuantity}}
         </p>
     </div>
-    <div class="card-footer" *ngIf="showActions">
-        <button class="btn btn-primary btn-block" [class.priceFontSmall]="productService.little"
+
+    <div class="card-footer">
+        <button class="btn btn-secondary btn-block btn-full" 
+        [class.priceFontSmall]="productService.little"
          (click)="addToCart(product)"
-         *ngIf="getQuantity() === 0">Add to Cart</button>
+         *ngIf="shoppingCartService.addToCartButton && getQuantity() === 0; else updateQuantity"
+        >Add to Cart</button>
         <ng-template #updateQuantity>
             <div class="row no-gutters">
-                <div class="col-2">
-                    <button class="btn btn-secondary">-</button>
+                <div class="col">
+                    <button class="btn btn-secondary btn-block btn-half" (click)="removeFromCart()">-</button>
                 </div>
-                <div class="col text-center">
-                    {{ getQuantity() }} in Cart
+                <div class="col text-center quantity">
+                    {{ getQuantity() }} 
                 </div>
-                <div class="col-2">
-                    <button class="btn btn-secondary">+</button>
+                <div class="col">
+                    <button class="btn btn-secondary btn-block btn-half" (click)="addToCart()">+</button>
                 </div>
             </div>
         </ng-template>
